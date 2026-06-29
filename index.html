@@ -11,6 +11,28 @@
         body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .tab-btn { transition: all 0.3s; color: white; }
         .active-tab { background-color: white !important; color: #003399 !important; font-weight: 800; }
+        
+        /* Neon Button Styling */
+        .neon-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #003399;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px #00d4ff, 0 0 30px #003399;
+            animation: spin 4s linear infinite;
+            z-index: 1000;
+            cursor: move;
+            border: 2px solid #00d4ff;
+            touch-action: none;
+            user-select: none;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -42,7 +64,45 @@
         </div>
     </main>
 
+    <!-- Neon Button -->
+    <a href="https://supercupknockout.ziokai2212006.workers.dev/" id="drag-btn" class="neon-btn">
+        <i class="fas fa-trophy text-white text-xl"></i>
+    </a>
+
     <script>
+        // Draggable Logic
+        const btn = document.getElementById('drag-btn');
+        let isDragging = false;
+
+        btn.addEventListener('mousedown', startDrag);
+        btn.addEventListener('touchstart', startDrag);
+
+        function startDrag(e) {
+            isDragging = true;
+            document.addEventListener('mousemove', moveBtn);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchmove', moveBtn);
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function moveBtn(e) {
+            if (!isDragging) return;
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            
+            btn.style.left = (clientX - 30) + 'px';
+            btn.style.top = (clientY - 30) + 'px';
+            btn.style.right = 'auto';
+            btn.style.bottom = 'auto';
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', moveBtn);
+            document.removeEventListener('touchmove', moveBtn);
+        }
+
+        // Teams and Matches Data
         const TEAMS = [
             { id: "ARS", name: "Arsenal", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg", tg: "https://t.me/EUREKA011775" },
             { id: "LEE", name: "Leeds", logo: "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg", tg: "https://t.me/ZawHtetLing" },
