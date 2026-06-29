@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The One Super Cup Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .tab-btn { transition: all 0.3s; color: white; }
+        .active-tab { background-color: white !important; color: #003399 !important; font-weight: 800; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-[#003399] border-b-4 border-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-3 py-4 flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+                <div class="bg-white p-1 rounded-lg h-9 w-9 overflow-hidden flex items-center justify-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/UEFA_Super_Cup_logo.svg/960px-UEFA_Super_Cup_logo.svg.png" alt="Logo" class="h-full w-full object-contain">
+                </div>
+                <div>
+                    <h1 class="text-sm font-black text-white">THE ONE <span class="text-white">SUPER CUP</span></h1>
+                    <p class="text-[8px] text-blue-200 font-bold uppercase tracking-widest">Season - 2</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-5 gap-1 bg-blue-900 p-1 rounded-lg">
+                <button onclick="showStage('playoff')" id="tab-playoff" class="tab-btn active-tab py-2 text-[9px] font-bold rounded-md">PLAY-OFF</button>
+                <button onclick="showStage('r16')" id="tab-r16" class="tab-btn py-2 text-[9px] font-bold rounded-md">R-16</button>
+                <button onclick="showStage('qf')" id="tab-qf" class="tab-btn py-2 text-[9px] font-bold rounded-md">QF</button>
+                <button onclick="showStage('sf')" id="tab-sf" class="tab-btn py-2 text-[9px] font-bold rounded-md">SF</button>
+                <button onclick="showStage('final')" id="tab-final" class="tab-btn py-2 text-[9px] font-bold rounded-md">FINAL</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-3 py-5 flex-1 w-full">
+        <div id="content-container" class="space-y-4">
+        </div>
+    </main>
+
+    <script>
+        const TEAMS = [
+            { id: "ARS", name: "Arsenal", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg", tg: "https://t.me/EUREKA011775" },
+            { id: "LEE", name: "Leeds", logo: "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg", tg: "https://t.me/ZawHtetLing" },
+            { id: "BHA", name: "Brighton", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/Brighton_and_Hove_Albion_FC_crest.svg/1280px-Brighton_and_Hove_Albion_FC_crest.svg.png", tg: "https://t.me/Saimonaon" },
+            { id: "NEW", name: "Newcastle", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg", tg: "https://t.me/Arshiq2003" },
+            { id: "ATM", name: "Atletico Madrid", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN5iKxgeeZGXp820t5DrBlL2a4-Aest3KFoGKL00WDUA&s", tg: "https://t.me/lakham212" },
+            { id: "RMA", name: "Real Madrid", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg", tg: "https://t.me/Hemaljr10" },
+            { id: "ATH", name: "Athletic Bilbao", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Club_Athletic_Bilbao_logo.svg/250px-Club_Athletic_Bilbao_logo.svg.png", tg: "https://t.me/Naingklinn" },
+            { id: "ALA", name: "Alaves", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Deportivo_Alaves_logo_%282020%29.svg/1280px-Deportivo_Alaves_logo_%282020%29.svg.png", tg: "https://t.me/ToeAung16" },
+            { id: "MIL", name: "AC Milan", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg", tg: "https://t.me/myothetnaing56" },
+            { id: "COM", name: "Como", logo: "https://upload.wikimedia.org/wikipedia/commons/9/99/Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg", tg: "https://t.me/Ro_Min_Htet" },
+            { id: "JUV", name: "Juventus", logo: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg", tg: "https://t.me/Jame0988" },
+            { id: "INT", name: "Inter Milan", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/250px-FC_Internazionale_Milano_2021.svg.png", tg: "https://t.me/Tomato_2k8" },
+            { id: "LEV", name: "Leverkusen", logo: "https://upload.wikimedia.org/wikipedia/de/f/f7/Bayer_Leverkusen_Logo.svg", tg: "https://t.me/kenzjust" },
+            { id: "WBR", name: "Werder Bremen", logo: "https://upload.wikimedia.org/wikipedia/commons/b/be/SV-Werder-Bremen-Logo.svg", tg: "https://t.me/Nyanzayar" },
+            { id: "DOR", name: "Dortmund", logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg", tg: "https://t.me/soelay0" },
+            { id: "FRA", name: "Frankfurt", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Eintracht_Frankfurt_crest.svg/1280px-Eintracht_Frankfurt_crest.svg.png", tg: "https://t.me/UKyawMaung13" },
+            { id: "WOL", name: "Wolves", logo: "https://upload.wikimedia.org/wikipedia/en/f/fc/Wolverhampton_Wanderers.svg", tg: "lord_voldemort101" },
+            { id: "AVL", name: "Aston Villa", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Aston_Villa_F.C._logo.svg/250px-Aston_Villa_F.C._logo.svg.png", tg: "mervin56" },
+            { id: "WOB", name: "Wolfsburg", logo: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Logo-VfL-Wolfsburg.svg", tg: "Aung_Htet_Paing23" },
+            { id: "FRE", name: "Freiburg", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/SC_Freiburg_logo.svg/960px-SC_Freiburg_logo.svg.png", tg: "Xuman88" },
+            { id: "GET", name: "Getafe", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR18CWPjLgM9gxG7XV2iWU7-Hm59Y_bNzy59z9QFGvPXw&s", tg: "JeevaG2006" },
+            { id: "VIL", name: "Villarreal", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Villarreal_CF_logo-en.svg/1280px-Villarreal_CF_logo-en.svg.png", tg: "Naingslw" },
+            { id: "TOR", name: "Torino", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/Torino_FC_Logo.svg/1280px-Torino_FC_Logo.svg.png", tg: "https://t.me/Nashhll" },
+            { id: "PAR", name: "Parma", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Logo_Parma_Calcio_1913_%28adozione_2016%29.svg/1280px-Logo_Parma_Calcio_1913_%28adozione_2016%29.svg.png", tg: "https://t.me/ptkyaw87" }
+        ];
+
+        const MATCHES = {
+            playoff: [
+                { home: 'ARS', away: 'FRA' }, { home: 'LEE', away: 'DOR' },
+                { home: 'BHA', away: 'WBR' }, { home: 'NEW', away: 'LEV' },
+                { home: 'ATM', away: 'INT' }, { home: 'RMA', away: 'JUV' },
+                { home: 'ATH', away: 'COM' }, { home: 'ALA', away: 'MIL' }
+            ],
+            r16: [
+                { home: 'WOL', away: 'TBD' }, { home: 'TBD', away: 'AVL' },
+                { home: 'WOB', away: 'TBD' }, { home: 'TBD', away: 'FRE' },
+                { home: 'GET', away: 'TBD' }, { home: 'TBD', away: 'VIL' },
+                { home: 'TOR', away: 'TBD' }, { home: 'TBD', away: 'PAR' }
+            ],
+            qf: Array(4).fill({ home: 'TBD', away: 'TBD' }),
+            sf: Array(2).fill({ home: 'TBD', away: 'TBD' }),
+            final: Array(1).fill({ home: 'TBD', away: 'TBD' })
+        };
+
+        function showStage(stage) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+            document.getElementById(`tab-${stage}`).classList.add('active-tab');
+            
+            const container = document.getElementById('content-container');
+            container.innerHTML = `<h2 class="text-center font-black text-[#003399] uppercase py-2">${stage.replace('-', ' ')} stage</h2>`;
+            
+            MATCHES[stage].forEach((match, index) => {
+                const h = TEAMS.find(t => t.id === match.home) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
+                const a = TEAMS.find(t => t.id === match.away) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
+                
+                container.innerHTML += `
+                    <div class="bg-white border border-slate-100 rounded-xl p-3 flex items-center justify-between shadow-sm hover:shadow-md">
+                        <a href="${h.tg}" target="_blank" class="flex items-center gap-2 w-[35%]">
+                            <img src="${h.logo}" class="w-8 h-8 object-contain"><span class="text-xs font-bold truncate text-slate-700">${h.name}</span>
+                        </a>
+                        <div class="flex items-center gap-2 w-[30%] justify-center">
+                            <span class="text-[#003399] font-black text-xs">VS</span>
+                        </div>
+                        <a href="${a.tg}" target="_blank" class="flex items-center gap-2 w-[35%] justify-end">
+                            <span class="text-xs font-bold truncate text-slate-700">${a.name}</span><img src="${a.logo}" class="w-8 h-8 object-contain">
+                        </a>
+                    </div>
+                `;
+            });
+        }
+        window.onload = () => showStage('playoff');
+    </script>
+</body>
+</html>
