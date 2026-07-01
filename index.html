@@ -12,7 +12,6 @@
         .tab-btn { transition: all 0.3s; color: white; }
         .active-tab { background-color: white !important; color: #003399 !important; font-weight: 800; }
         
-        /* Neon Button Styling */
         .neon-btn {
             position: fixed;
             bottom: 30px;
@@ -64,16 +63,13 @@
         </div>
     </main>
 
-    <!-- Neon Button -->
     <a href="https://supercupknockout.ziokai2212006.workers.dev/" id="drag-btn" class="neon-btn">
         <i class="fas fa-trophy text-white text-xl"></i>
     </a>
 
     <script>
-        // Draggable Logic
         const btn = document.getElementById('drag-btn');
         let isDragging = false;
-
         btn.addEventListener('mousedown', startDrag);
         btn.addEventListener('touchstart', startDrag);
 
@@ -89,11 +85,8 @@
             if (!isDragging) return;
             const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-            
             btn.style.left = (clientX - 30) + 'px';
             btn.style.top = (clientY - 30) + 'px';
-            btn.style.right = 'auto';
-            btn.style.bottom = 'auto';
         }
 
         function stopDrag() {
@@ -102,7 +95,6 @@
             document.removeEventListener('touchmove', moveBtn);
         }
 
-        // Teams and Matches Data
         const TEAMS = [
             { id: "ARS", name: "Arsenal", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg", tg: "https://t.me/EUREKA011775" },
             { id: "LEE", name: "Leeds", logo: "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg", tg: "https://t.me/ZawHtetLing" },
@@ -138,10 +130,10 @@
                 { home: 'ATH', away: 'COM', hs: 6, as: 2 }, { home: 'ALA', away: 'MIL', hs: 3, as: 7 }
             ],
             r16: [
-                { home: 'WOL', away: 'TBD' }, { home: 'TBD', away: 'AVL' },
-                { home: 'WOB', away: 'TBD' }, { home: 'TBD', away: 'FRE' },
-                { home: 'GET', away: 'TBD' }, { home: 'TBD', away: 'VIL' },
-                { home: 'TOR', away: 'TBD' }, { home: 'TBD', away: 'PAR' }
+                { home: 'WOL', away: 'FRA' }, { home: 'DOR', away: 'AVL' },
+                { home: 'WOB', away: 'BHA' }, { home: 'LEV', away: 'FRE' },
+                { home: 'GET', away: 'ATM' }, { home: 'JUV', away: 'VIL' },
+                { home: 'TOR', away: 'ATH' }, { home: 'MIL', away: 'PAR' }
             ],
             qf: Array(4).fill({ home: 'TBD', away: 'TBD' }),
             sf: Array(2).fill({ home: 'TBD', away: 'TBD' }),
@@ -151,25 +143,19 @@
         function showStage(stage) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
             document.getElementById(`tab-${stage}`).classList.add('active-tab');
-            
             const container = document.getElementById('content-container');
             container.innerHTML = `<h2 class="text-center font-black text-[#003399] uppercase py-2">${stage.replace('-', ' ')} stage</h2>`;
             
-            MATCHES[stage].forEach((match, index) => {
+            MATCHES[stage].forEach((match) => {
                 const h = TEAMS.find(t => t.id === match.home) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
                 const a = TEAMS.find(t => t.id === match.away) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
+                const scoreDisplay = (match.hs !== undefined && match.as !== undefined) ? `${match.hs} - ${match.as}` : "VS";
                 
                 container.innerHTML += `
-                    <div class="bg-white border border-slate-100 rounded-xl p-3 flex items-center justify-between shadow-sm hover:shadow-md">
-                        <a href="${h.tg}" target="_blank" class="flex items-center gap-2 w-[35%]">
-                            <img src="${h.logo}" class="w-8 h-8 object-contain"><span class="text-xs font-bold truncate text-slate-700">${h.name}</span>
-                        </a>
-                        <div class="flex items-center gap-2 w-[30%] justify-center">
-                            <span class="text-[#003399] font-black text-xs">VS</span>
-                        </div>
-                        <a href="${a.tg}" target="_blank" class="flex items-center gap-2 w-[35%] justify-end">
-                            <span class="text-xs font-bold truncate text-slate-700">${a.name}</span><img src="${a.logo}" class="w-8 h-8 object-contain">
-                        </a>
+                    <div class="bg-white border border-slate-100 rounded-xl p-3 flex items-center justify-between shadow-sm">
+                        <a href="${h.tg}" target="_blank" class="flex items-center gap-2 w-[40%]"><img src="${h.logo}" class="w-8 h-8 object-contain"><span class="text-xs font-bold truncate">${h.name}</span></a>
+                        <div class="text-[#003399] font-black text-xs">${scoreDisplay}</div>
+                        <a href="${a.tg}" target="_blank" class="flex items-center gap-2 w-[40%] justify-end"><span class="text-xs font-bold truncate">${a.name}</span><img src="${a.logo}" class="w-8 h-8 object-contain"></a>
                     </div>
                 `;
             });
