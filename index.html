@@ -131,13 +131,13 @@
             ],
             r16: [
                 { home: 'WOL', away: 'FRA', hs: 11, as: 6 }, { home: 'DOR', away: 'AVL', hs: 8, as: 9 },
-                { home: 'WOB', away: 'BHA', hs: 8, as: ၄ }, { home: 'LEV', away: 'FRE', hs: 3, as: 7 },
+                { home: 'WOB', away: 'BHA', hs: 8, as: 9 }, { home: 'LEV', away: 'FRE', hs: 3, as: 7 },
                 { home: 'GET', away: 'ATM', hs: 8, as: 2 }, { home: 'JUV', away: 'VIL', hs: 8, as: 3 },
                 { home: 'TOR', away: 'ATH', hs: 4, as: 1 }, { home: 'MIL', away: 'PAR', hs: 7, as: 3 }
             ],
             qf: [
                 { home: 'WOL', away: 'AVL' }, { home: 'GET', away: 'JUV' },
-                { home: 'WOB', away: 'FRE' }, { home: 'TOR', away: 'MIL' }
+                { home: 'BHA', away: 'FRE' }, { home: 'TOR', away: 'MIL' }
             ],
             sf: Array(2).fill({ home: 'TBD', away: 'TBD' }),
             final: Array(1).fill({ home: 'TBD', away: 'TBD' })
@@ -149,10 +149,12 @@
             const container = document.getElementById('content-container');
             container.innerHTML = `<h2 class="text-center font-black text-[#003399] uppercase py-2">${stage.replace('-', ' ')} stage</h2>`;
             
+            const showScores = ['playoff', 'r16'].includes(stage);
+
             MATCHES[stage].forEach((match) => {
                 const h = TEAMS.find(t => t.id === match.home) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
                 const a = TEAMS.find(t => t.id === match.away) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
-                const scoreDisplay = (match.hs !== undefined && match.as !== undefined) ? `${match.hs} - ${match.as}` : "VS";
+                const scoreDisplay = (showScores && match.hs !== undefined && match.as !== undefined) ? `${match.hs} - ${match.as}` : "VS";
                 
                 container.innerHTML += `
                     <div class="bg-white border border-slate-100 rounded-xl p-3 flex items-center justify-between shadow-sm">
