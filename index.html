@@ -142,10 +142,10 @@
                 { home: 'TOR', away: 'PAR', hs: 3, as: 6 }
             ],
             sf: [
-                { home: 'WOL', away: 'GET' },
-                { home: 'WOB', away: 'PAR' }
+                { home: 'WOL', away: 'GET', hs: 7, as: 9 },
+                { home: 'WOB', away: 'PAR', hs: 5, as: 3 }
             ],
-            final: Array(1).fill({ home: 'TBD', away: 'TBD' })
+            final: Array(1).fill({ home: 'WOB', away: 'GET' })
         };
 
         function showStage(stage) {
@@ -154,7 +154,7 @@
             const container = document.getElementById('content-container');
             container.innerHTML = `<h2 class="text-center font-black text-[#003399] uppercase py-2">${stage.replace('-', ' ')} stage</h2>`;
             
-            const showScores = ['playoff', 'r16', 'qf'].includes(stage);
+            const showScores = ['playoff', 'r16', 'qf', 'sf'].includes(stage);
 
             MATCHES[stage].forEach((match) => {
                 const h = TEAMS.find(t => t.id === match.home) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
