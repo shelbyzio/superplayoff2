@@ -11,27 +11,12 @@
         body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .tab-btn { transition: all 0.3s; color: white; }
         .active-tab { background-color: white !important; color: #003399 !important; font-weight: 800; }
-        
         .neon-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #003399;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px #00d4ff, 0 0 30px #003399;
-            animation: spin 4s linear infinite;
-            z-index: 1000;
-            cursor: move;
-            border: 2px solid #00d4ff;
-            touch-action: none;
-            user-select: none;
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: #003399; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px #00d4ff, 0 0 30px #003399; z-index: 1000; cursor: move;
+            border: 2px solid #00d4ff; touch-action: none; user-select: none;
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -44,7 +29,7 @@
                 </div>
                 <div>
                     <h1 class="text-sm font-black text-white">THE ONE <span class="text-white">SUPER CUP</span></h1>
-                    <p class="text-[8px] text-blue-200 font-bold uppercase tracking-widest">Season - 2</p>
+                    <p class="text-[8px] text-blue-200 font-bold uppercase tracking-widest">Season - 3</p>
                 </div>
             </div>
             
@@ -59,8 +44,7 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-3 py-5 flex-1 w-full">
-        <div id="content-container" class="space-y-4">
-        </div>
+        <div id="content-container" class="space-y-4"></div>
     </main>
 
     <a href="https://supercupknockout.ziokai2212006.workers.dev/" id="drag-btn" class="neon-btn">
@@ -68,84 +52,36 @@
     </a>
 
     <script>
-        const btn = document.getElementById('drag-btn');
-        let isDragging = false;
-        btn.addEventListener('mousedown', startDrag);
-        btn.addEventListener('touchstart', startDrag);
-
-        function startDrag(e) {
-            isDragging = true;
-            document.addEventListener('mousemove', moveBtn);
-            document.addEventListener('mouseup', stopDrag);
-            document.addEventListener('touchmove', moveBtn);
-            document.addEventListener('touchend', stopDrag);
-        }
-
-        function moveBtn(e) {
-            if (!isDragging) return;
-            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-            btn.style.left = (clientX - 30) + 'px';
-            btn.style.top = (clientY - 30) + 'px';
-        }
-
-        function stopDrag() {
-            isDragging = false;
-            document.removeEventListener('mousemove', moveBtn);
-            document.removeEventListener('touchmove', moveBtn);
-        }
-
         const TEAMS = [
-            { id: "ARS", name: "Arsenal", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg", tg: "https://t.me/EUREKA011775" },
-            { id: "LEE", name: "Leeds", logo: "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg", tg: "https://t.me/ZawHtetLing" },
-            { id: "BHA", name: "Brighton", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/Brighton_and_Hove_Albion_FC_crest.svg/1280px-Brighton_and_Hove_Albion_FC_crest.svg.png", tg: "https://t.me/Saimonaon" },
-            { id: "NEW", name: "Newcastle", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg", tg: "https://t.me/Arshiq2003" },
-            { id: "ATM", name: "Atletico Madrid", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN5iKxgeeZGXp820t5DrBlL2a4-Aest3KFoGKL00WDUA&s", tg: "https://t.me/lakham212" },
-            { id: "RMA", name: "Real Madrid", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg", tg: "https://t.me/Hemaljr10" },
-            { id: "ATH", name: "Athletic Bilbao", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Club_Athletic_Bilbao_logo.svg/250px-Club_Athletic_Bilbao_logo.svg.png", tg: "https://t.me/Naingklinn" },
-            { id: "ALA", name: "Alaves", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Deportivo_Alaves_logo_%282020%29.svg/1280px-Deportivo_Alaves_logo_%282020%29.svg.png", tg: "https://t.me/ToeAung16" },
-            { id: "MIL", name: "AC Milan", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg", tg: "https://t.me/myothetnaing56" },
-            { id: "COM", name: "Como", logo: "https://upload.wikimedia.org/wikipedia/commons/9/99/Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg", tg: "https://t.me/Ro_Min_Htet" },
-            { id: "JUV", name: "Juventus", logo: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg", tg: "https://t.me/Jame0988" },
-            { id: "INT", name: "Inter Milan", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/250px-FC_Internazionale_Milano_2021.svg.png", tg: "https://t.me/Tomato_2k8" },
-            { id: "LEV", name: "Leverkusen", logo: "https://upload.wikimedia.org/wikipedia/de/f/f7/Bayer_Leverkusen_Logo.svg", tg: "https://t.me/kenzjust" },
-            { id: "WBR", name: "Werder Bremen", logo: "https://upload.wikimedia.org/wikipedia/commons/b/be/SV-Werder-Bremen-Logo.svg", tg: "https://t.me/Nyanzayar" },
-            { id: "DOR", name: "Dortmund", logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg", tg: "https://t.me/soelay0" },
-            { id: "FRA", name: "Frankfurt", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Eintracht_Frankfurt_crest.svg/1280px-Eintracht_Frankfurt_crest.svg.png", tg: "https://t.me/UKyawMaung13" },
-            { id: "WOL", name: "Wolves", logo: "https://upload.wikimedia.org/wikipedia/en/f/fc/Wolverhampton_Wanderers.svg", tg: "https://t.me/lord_voldemort101" },
-            { id: "AVL", name: "Aston Villa", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Aston_Villa_F.C._logo.svg/250px-Aston_Villa_F.C._logo.svg.png", tg: "https://t.me/mervin56" },
-            { id: "WOB", name: "Wolfsburg", logo: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Logo-VfL-Wolfsburg.svg", tg: "https://t.me/Aung_Htet_Paing23" },
-            { id: "FRE", name: "Freiburg", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/SC_Freiburg_logo.svg/960px-SC_Freiburg_logo.svg.png", tg: "https://t.me/Xuman88" },
-            { id: "GET", name: "Getafe", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR18CWPjLgM9gxG7XV2iWU7-Hm59Y_bNzy59z9QFGvPXw&s", tg: "https://t.me/JeevaG2006" },
-            { id: "VIL", name: "Villarreal", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Villarreal_CF_logo-en.svg/1280px-Villarreal_CF_logo-en.svg.png", tg: "https://t.me/Naingslw" },
-            { id: "TOR", name: "Torino", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/Torino_FC_Logo.svg/1280px-Torino_FC_Logo.svg.png", tg: "https://t.me/Nashhll" },
-            { id: "PAR", name: "Parma", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Logo_Parma_Calcio_1913_%28adozione_2016%29.svg/1280px-Logo_Parma_Calcio_1913_%28adozione_2016%29.svg.png", tg: "https://t.me/ptkyaw87" }
+            { id: "LIV", name: "Liverpool", logo: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg", tg: "https://t.me/Nikakmt" },
+            { id: "TOT", name: "Tottenham", logo: "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg", tg: "https://t.me/Pyaephyokyaw255" },
+            { id: "CHE", name: "Chelsea", logo: "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg", tg: "https://t.me/aungnayzan" },
+            { id: "ARS", name: "Arsenal", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg", tg: "https://t.me/kenzjust" },
+            { id: "BAR", name: "Barcelona", logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg", tg: "https://t.me/lokidemon99" },
+            { id: "RMA", name: "Real Madrid", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg", tg: "https://t.me/Skino777" },
+            { id: "ATM", name: "Atletico", logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg", tg: "https://t.me/" },
+            { id: "SEV", name: "Sevilla", logo: "https://upload.wikimedia.org/wikipedia/en/3/3b/Sevilla_FC_logo.svg", tg: "https://t.me/Arkar370" },
+            { id: "FIO", name: "Fiorentina", logo: "https://upload.wikimedia.org/wikipedia/en/b/ba/ACF_Fiorentina_2022_logo.svg", tg: "https://t.me/HeinHtet_Nai" },
+            { id: "NAP", name: "Napoli", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2d/SSC_Napoli.svg", tg: "https://t.me/MRTONE3" },
+            { id: "MIL", name: "AC Milan", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg", tg: "https://t.me/Sanminoo" },
+            { id: "INT", name: "Inter Milan", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg", tg: "https://t.me/Zayyarlin2" },
+            { id: "RBL", name: "RB Leipzig", logo: "https://upload.wikimedia.org/wikipedia/en/0/04/RB_Leipzig_2014_logo.svg", tg: "https://t.me/Myan_Khun" },
+            { id: "DOR", name: "Dortmund", logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg", tg: "https://t.me/KoKyaw_KYT" },
+            { id: "UNI", name: "Union Berlin", logo: "https://upload.wikimedia.org/wikipedia/en/5/5e/1._FC_Union_Berlin_logo.svg", tg: "https://t.me/merrydesu" },
+            { id: "LEV", name: "Leverkusen", logo: "https://upload.wikimedia.org/wikipedia/de/f/f7/Bayer_Leverkusen_Logo.svg", tg: "https://t.me/mikeyjn" }
         ];
 
         const MATCHES = {
             playoff: [
-                { home: 'ARS', away: 'FRA', hs: 4, as: 8 }, { home: 'LEE', away: 'DOR', hs: 1, as: 6 },
-                { home: 'BHA', away: 'WBR', hs: 8, as: 6 }, { home: 'NEW', away: 'LEV', hs: 4, as: 8 },
-                { home: 'ATM', away: 'INT', hs: 5, as: 2 }, { home: 'RMA', away: 'JUV', hs: 3, as: 8 },
-                { home: 'ATH', away: 'COM', hs: 6, as: 2 }, { home: 'ALA', away: 'MIL', hs: 3, as: 7 }
+                { home: 'LIV', away: 'LEV' }, { home: 'TOT', away: 'UNI' },
+                { home: 'CHE', away: 'DOR' }, { home: 'ARS', away: 'RBL' },
+                { home: 'BAR', away: 'INT' }, { home: 'RMA', away: 'MIL' },
+                { home: 'ATM', away: 'NAP' }, { home: 'SEV', away: 'FIO' }
             ],
-            r16: [
-                { home: 'WOL', away: 'FRA', hs: 11, as: 6 }, { home: 'DOR', away: 'AVL', hs: 8, as: 9 },
-                { home: 'WOB', away: 'BHA', hs: 8, as: 4 }, { home: 'LEV', away: 'FRE', hs: 3, as: 7 },
-                { home: 'GET', away: 'ATM', hs: 8, as: 2 }, { home: 'JUV', away: 'VIL', hs: 3, as: 12 },
-                { home: 'TOR', away: 'ATH', hs: 4, as: 1 }, { home: 'MIL', away: 'PAR', hs: 3, as: 10 }
-            ],
-            qf: [
-                { home: 'WOL', away: 'AVL', hs: 12, as: 4 },
-                { home: 'GET', away: 'VIL', hs: 6, as: 3 },
-                { home: 'WOB', away: 'FRE', hs: 10, as: 1 },
-                { home: 'TOR', away: 'PAR', hs: 3, as: 6 }
-            ],
-            sf: [
-                { home: 'WOL', away: 'GET', hs: 7, as: 9 },
-                { home: 'WOB', away: 'PAR', hs: 5, as: 3 }
-            ],
-            final: Array(1).fill({ home: 'WOB', away: 'GET' })
+            r16: Array(8).fill({ home: 'TBD', away: 'TBD' }),
+            qf: Array(4).fill({ home: 'TBD', away: 'TBD' }),
+            sf: Array(2).fill({ home: 'TBD', away: 'TBD' }),
+            final: Array(1).fill({ home: 'TBD', away: 'TBD' })
         };
 
         function showStage(stage) {
@@ -154,12 +90,10 @@
             const container = document.getElementById('content-container');
             container.innerHTML = `<h2 class="text-center font-black text-[#003399] uppercase py-2">${stage.replace('-', ' ')} stage</h2>`;
             
-            const showScores = ['playoff', 'r16', 'qf', 'sf'].includes(stage);
-
             MATCHES[stage].forEach((match) => {
                 const h = TEAMS.find(t => t.id === match.home) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
                 const a = TEAMS.find(t => t.id === match.away) || {name: "TBD", logo: "https://placehold.co/40x40/ddd/555?text=?", tg: "#"};
-                const scoreDisplay = (showScores && match.hs !== undefined && match.as !== undefined) ? `${match.hs} - ${match.as}` : "VS";
+                const scoreDisplay = (match.hs !== undefined) ? `${match.hs} - ${match.as}` : "VS";
                 
                 container.innerHTML += `
                     <div class="bg-white border border-slate-100 rounded-xl p-3 flex items-center justify-between shadow-sm">
