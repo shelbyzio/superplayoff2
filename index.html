@@ -14,7 +14,7 @@
         .neon-btn {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: #003399; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px #00d4ff, 0 0 30px #003399; z-index: 1000; cursor: move;
+            box-shadow: 0 0 15px #00d4ff, 0 0 30px #003399; z-index: 1000; cursor: pointer;
             border: 2px solid #00d4ff; touch-action: none; user-select: none;
         }
     </style>
@@ -68,22 +68,43 @@
             { id: "RBL", name: "RB Leipzig", logo: "https://upload.wikimedia.org/wikipedia/en/0/04/RB_Leipzig_2014_logo.svg", tg: "https://t.me/Myan_Khun" },
             { id: "DOR", name: "Dortmund", logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg", tg: "https://t.me/KoKyaw_KYT" },
             { id: "UNI", name: "Union Berlin", logo: "https://upload.wikimedia.org/wikipedia/en/5/5e/1._FC_Union_Berlin_logo.svg", tg: "https://t.me/merrydesu" },
-            { id: "LEV", name: "Leverkusen", logo: "https://upload.wikimedia.org/wikipedia/de/f/f7/Bayer_Leverkusen_Logo.svg", tg: "https://t.me/mikeyjn" }
+            { id: "LEV", name: "Leverkusen", logo: "https://upload.wikimedia.org/wikipedia/de/f/f7/Bayer_Leverkusen_Logo.svg", tg: "https://t.me/mikeyjn" },
+            // Added new teams
+            { id: "MUN", name: "Man United", logo: "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg", tg: "https://t.me/Nyan428925" },
+            { id: "LEE", name: "Leeds", logo: "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_logo.svg", tg: "https://t.me/ptkyaw87" },
+            { id: "SOC", name: "Real Sociedad", logo: "https://upload.wikimedia.org/wikipedia/en/f/f1/Real_Sociedad_logo.svg", tg: "https://t.me/JeevaG2006" },
+            { id: "VIL", name: "Villarreal", logo: "https://upload.wikimedia.org/wikipedia/en/7/70/Villarreal_CF_logo.svg", tg: "https://t.me/LuNyo0" },
+            { id: "PAR", name: "Parma", logo: "https://upload.wikimedia.org/wikipedia/en/9/9e/Parma_Calcio_1913_logo.svg", tg: "https://t.me/iz_szlai" },
+            { id: "ROM", name: "Roma", logo: "https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg", tg: "https://t.me/KyawGyi798260" },
+            { id: "WOL", name: "Wolfsburg", logo: "https://upload.wikimedia.org/wikipedia/en/f/f3/VfL_Wolfsburg_logo.svg", tg: "https://t.me/Badrul11" },
+            { id: "STP", name: "Saint Pauli", logo: "https://upload.wikimedia.org/wikipedia/en/d/d4/FC_St._Pauli_logo.svg", tg: "https://t.me/kharkhar1225" }
         ];
 
         const MATCHES = {
             playoff: [
-                { home: 'LIV', away: 'LEV' }, { home: 'TOT', away: 'UNI' },
-                { home: 'CHE', away: 'DOR' }, { home: 'ARS', away: 'RBL' },
-                { home: 'BAR', away: 'INT' }, { home: 'RMA', away: 'MIL' },
-                { home: 'ATM', away: 'NAP' }, { home: 'SEV', away: 'FIO' }
+                { home: 'LIV', hs: 5, away: 'LEV', as: 6 },
+                { home: 'TOT', away: 'UNI' },
+                { home: 'CHE', hs: 9, away: 'DOR', as: 4 },
+                { home: 'ARS', hs: 3, away: 'RBL', as: 0 },
+                { home: 'BAR', hs: 9, away: 'INT', as: 13 },
+                { home: 'RMA', hs: 1, away: 'MIL', as: 6 },
+                { home: 'ATM', hs: 1, away: 'NAP', as: 0 },
+                { home: 'SEV', hs: 6, away: 'FIO', as: 9 }
             ],
-            r16: Array(8).fill({ home: 'TBD', away: 'TBD' }),
+            r16: [
+                { home: 'LEV', away: 'MUN' },
+                { home: 'CHE', away: 'LEE' },
+                { home: 'ARS', away: 'SOC' },
+                { home: 'INT', away: 'VIL' },
+                { home: 'MIL', away: 'PAR' },
+                { home: 'ATM', away: 'ROM' },
+                { home: 'FIO', away: 'WOL' },
+                { home: 'STP', away: 'TBD' } // TBD reserved for TOT/UNI winner
+            ],
             qf: Array(4).fill({ home: 'TBD', away: 'TBD' }),
             sf: Array(2).fill({ home: 'TBD', away: 'TBD' }),
             final: Array(1).fill({ home: 'TBD', away: 'TBD' })
         };
-
         function showStage(stage) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
             document.getElementById(`tab-${stage}`).classList.add('active-tab');
