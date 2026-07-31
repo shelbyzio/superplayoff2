@@ -15,7 +15,7 @@
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: #003399; border-radius: 50%; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 0 15px #00d4ff, 0 0 30px #003399; z-index: 1000; cursor: pointer;
-            border: 2px solid #00d4ff; touch-action: none; user-select: none;
+            border: 2px solid #00d4ff;
         }
     </style>
 </head>
@@ -34,7 +34,7 @@
             </div>
             
             <div class="grid grid-cols-5 gap-1 bg-blue-900 p-1 rounded-lg">
-                <button onclick="showStage('playoff')" id="tab-playoff" class="tab-btn active-tab py-2 text-[9px] font-bold rounded-md">PLAY-OFF</button>
+                <button onclick="showStage('playoff')" id="tab-playoff" class="tab-btn py-2 text-[9px] font-bold rounded-md">PLAY-OFF</button>
                 <button onclick="showStage('r16')" id="tab-r16" class="tab-btn py-2 text-[9px] font-bold rounded-md">R-16</button>
                 <button onclick="showStage('qf')" id="tab-qf" class="tab-btn py-2 text-[9px] font-bold rounded-md">QF</button>
                 <button onclick="showStage('sf')" id="tab-sf" class="tab-btn py-2 text-[9px] font-bold rounded-md">SF</button>
@@ -69,7 +69,6 @@
             { id: "DOR", name: "Dortmund", logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg", tg: "https://t.me/KoKyaw_KYT" },
             { id: "UNI", name: "Union Berlin", logo: "https://upload.wikimedia.org/wikipedia/en/5/5e/1._FC_Union_Berlin_logo.svg", tg: "https://t.me/merrydesu" },
             { id: "LEV", name: "Leverkusen", logo: "https://upload.wikimedia.org/wikipedia/de/f/f7/Bayer_Leverkusen_Logo.svg", tg: "https://t.me/mikeyjn" },
-            // Added new teams
             { id: "MUN", name: "Man United", logo: "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg", tg: "https://t.me/Nyan428925" },
             { id: "LEE", name: "Leeds", logo: "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_logo.svg", tg: "https://t.me/ptkyaw87" },
             { id: "SOC", name: "Real Sociedad", logo: "https://upload.wikimedia.org/wikipedia/en/f/f1/Real_Sociedad_logo.svg", tg: "https://t.me/JeevaG2006" },
@@ -92,19 +91,28 @@
                 { home: 'SEV', hs: 6, away: 'FIO', as: 9 }
             ],
             r16: [
-                { home: 'LEV', away: 'MUN' },
-                { home: 'CHE', away: 'LEE' },
-                { home: 'ARS', away: 'SOC' },
-                { home: 'INT', away: 'VIL' },
-                { home: 'MIL', away: 'PAR' },
-                { home: 'ATM', away: 'ROM' },
-                { home: 'FIO', away: 'WOL' },
-                { home: 'STP', away: 'UNI' } // TBD reserved for TOT/UNI winner
+                { home: 'LEV', hs: 5, away: 'MUN', as: 8 },
+                { home: 'CHE', hs: 3, away: 'LEE', as: 4 },
+                { home: 'ARS', hs: 0, away: 'SOC', as: 0 },
+                { home: 'INT', hs: 1, away: 'VIL', as: 6 },
+                { home: 'MIL', hs: 6, away: 'PAR', as: 5 },
+                { home: 'ATM', hs: 0, away: 'ROM', as: 0 },
+                { home: 'FIO', hs: 8, away: 'WOL', as: 1 },
+                { home: 'STP', hs: 2, away: 'UNI', as: 8 }
             ],
-            qf: Array(4).fill({ home: 'TBD', away: 'TBD' }),
-            sf: Array(2).fill({ home: 'TBD', away: 'TBD' }),
+            qf: [
+                { home: 'MUN', hs: 4, away: 'LEE', as: 2 },
+                { home: 'SOC', hs: 2, away: 'VIL', as: 5 },
+                { home: 'MIL', hs: 3, away: 'ATM', as: 1 },
+                { home: 'FIO', hs: 4, away: 'UNI', as: 1 }
+            ],
+            sf: [
+                { home: 'MUN', away: 'VIL' },
+                { home: 'MIL', away: 'FIO' }
+            ],
             final: Array(1).fill({ home: 'TBD', away: 'TBD' })
         };
+
         function showStage(stage) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
             document.getElementById(`tab-${stage}`).classList.add('active-tab');
@@ -125,7 +133,7 @@
                 `;
             });
         }
-        window.onload = () => showStage('playoff');
+        window.onload = () => showStage('qf');
     </script>
 </body>
 </html>
